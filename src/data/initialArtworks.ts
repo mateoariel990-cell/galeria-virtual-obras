@@ -1,0 +1,40 @@
+import type { Artwork } from '../types/artwork'
+
+export const initialArtworks: Artwork[] = [
+  {
+    id: 'demo-1',
+    name: 'Bolso tejido artesanal',
+    description: 'Bolso hecho a mano con diseño tradicional y terminaciones cuidadas.',
+    price: 180000,
+    category: 'Carteras',
+    image: '/images/obra-1.jpg',
+    alt: 'Bolso tejido en tonos terracota y crema',
+    artistName: 'Ana Benítez',
+    whatsapp: '595981111111',
+    location: 'Villarrica',
+  },
+  {
+    id: 'demo-2',
+    name: 'Pintura de colibrí',
+    description: 'Obra inspirada en la naturaleza, con colores suaves y estilo artesanal.',
+    price: 250000,
+    category: 'Pinturas',
+    image: '/images/obra-2.jpg',
+    alt: 'Pintura artesanal de un colibrí entre flores',
+    artistName: 'María González',
+    whatsapp: '595981222222',
+    location: 'Villarrica',
+  },
+  {
+    id: 'demo-3',
+    name: 'Cartera tejida verde',
+    description: 'Cartera artesanal tejida a mano con un estilo elegante, cálido y atemporal.',
+    price: 220000,
+    category: 'Artesanías',
+    image: '/images/obra-3.jpg',
+    alt: 'Cartera tejida verde con detalles en color crema',
+    artistName: 'Laura Martínez',
+    whatsapp: '595981333333',
+    location: 'Caaguazú',
+  },
+]
