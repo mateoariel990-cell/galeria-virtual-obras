@@ -45,7 +45,7 @@ export function HomePage() {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">Todavía no hay obras publicadas.</p>
+              <p className="empty-state">Todavía no hay obras cargadas.</p>
             )}
           </div>
         </section>

@@ -16,8 +16,10 @@ export function useArtworks() {
     setIsLoading(true)
     setError('')
     try {
-      setArtworks(await fetchArtworks())
+      const loadedArtworks = await fetchArtworks()
+      setArtworks(loadedArtworks)
     } catch (caught) {
+      console.error('Error loading artworks:', caught)
       setError(caught instanceof Error ? caught.message : 'No se pudieron cargar las obras.')
       setArtworks([])
     } finally {

@@ -1,4 +1,3 @@
-import { initialArtworks } from '../data/initialArtworks'
 import { supabase } from '../lib/supabase'
 import type { Artwork, ArtworkCategory, ArtworkInput } from '../types/artwork'
 
@@ -15,7 +14,7 @@ type ArtworkRow = {
   artist_name: string
   whatsapp: string
   location: string | null
-  created_at?: string
+  created_at: string
 }
 
 const toArtwork = (row: ArtworkRow): Artwork => ({
@@ -53,11 +52,15 @@ export async function fetchArtworks() {
   const client = requireSupabase()
   const { data, error } = await client
     .from(TABLE_NAME)
-    .select('*')
+    .select('id,name,description,price,category,image_url,artist_name,whatsapp,location,created_at')
     .order('created_at', { ascending: false })
 
-  if (error) throw error
-  return data && data.length > 0 ? (data as ArtworkRow[]).map(toArtwork) : initialArtworks
+  if (error) {
+    console.error('Error loading artworks:', error)
+    throw new Error(error.message)
+  }
+
+  return (data ?? []).map((row) => toArtwork(row as ArtworkRow))
 }
 
 export async function uploadArtworkImage(file: File) {
@@ -84,7 +87,7 @@ export async function createArtwork(input: ArtworkInput) {
   const { data, error } = await client
     .from(TABLE_NAME)
     .insert(toRow(input, imageUrl))
-    .select('*')
+    .select('id,name,description,price,category,image_url,artist_name,whatsapp,location,created_at')
     .single()
 
   if (error) throw error
@@ -98,7 +101,7 @@ export async function saveArtwork(id: string, input: ArtworkInput) {
     .from(TABLE_NAME)
     .update(toRow(input, imageUrl))
     .eq('id', id)
-    .select('*')
+    .select('id,name,description,price,category,image_url,artist_name,whatsapp,location,created_at')
     .single()
 
   if (error) throw error
