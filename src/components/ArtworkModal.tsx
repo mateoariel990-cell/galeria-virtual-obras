@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { formatPrice, getWhatsappUrl, type Artwork } from '../types/artwork'
+import { getWhatsappUrl, type Artwork } from '../types/artwork'
+import { formatPrice } from '../utils/price'
 
 type ArtworkModalProps = {
   artwork: Artwork | null

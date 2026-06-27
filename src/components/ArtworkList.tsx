@@ -1,4 +1,5 @@
-import { formatPrice, type Artwork } from '../types/artwork'
+import type { Artwork } from '../types/artwork'
+import { formatPrice } from '../utils/price'
 
 type ArtworkListProps = {
   artworks: Artwork[]

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from 'react'
 import { ARTWORK_CATEGORIES, type Artwork, type ArtworkCategory, type ArtworkInput } from '../types/artwork'
+import { formatPriceInput, parsePriceInput } from '../utils/price'
 
 type ArtworkFormProps = {
   artwork: Artwork | null
@@ -40,7 +41,7 @@ export function ArtworkForm({ artwork, isSaving, onSave, onCancel }: ArtworkForm
       setForm({
         name: artwork.name,
         description: artwork.description,
-        price: String(artwork.price),
+        price: formatPriceInput(artwork.price),
         category: artwork.category,
         image: artwork.image,
         artistName: artwork.artistName,
@@ -73,15 +74,14 @@ export function ArtworkForm({ artwork, isSaving, onSave, onCancel }: ArtworkForm
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const price = Number(form.price)
+    const price = parsePriceInput(form.price)
     if (
       !form.name.trim() ||
       !form.description.trim() ||
       (!form.image && !form.imageFile) ||
       !form.artistName.trim() ||
       !form.whatsapp.trim() ||
-      !price ||
-      price < 0
+      price <= 0
     ) {
       setError('Completá todos los campos antes de guardar la obra.')
       return
@@ -197,12 +197,11 @@ export function ArtworkForm({ artwork, isSaving, onSave, onCancel }: ArtworkForm
         <label className="field">
           <span>Precio en guaraníes</span>
           <input
-            type="number"
-            min="1"
-            step="1000"
+            type="text"
+            inputMode="numeric"
             value={form.price}
-            onChange={(event) => setForm({ ...form, price: event.target.value })}
-            placeholder="180000"
+            onChange={(event) => setForm({ ...form, price: formatPriceInput(event.target.value) })}
+            placeholder="Ej: 250.000"
             disabled={isSaving}
             required
           />

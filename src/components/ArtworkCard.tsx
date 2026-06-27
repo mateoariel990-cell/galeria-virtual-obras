@@ -1,4 +1,5 @@
-import { formatPrice, getWhatsappUrl, type Artwork } from '../types/artwork'
+import { getWhatsappUrl, type Artwork } from '../types/artwork'
+import { formatPrice } from '../utils/price'
 
 type ArtworkCardProps = {
   artwork: Artwork
